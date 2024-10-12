@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1"
+  xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <g id="Beutl Logo">
+    <path
+      d="M118.003 58C155.143 57.9827 157.065 91 157.003 96.0002C156.94 101 157.02 125.514 118.003 146.001C109.58 150.331 81.8928 161.64 81.4922 161.5C80.0025 155.885 80 150.94 80 150.94L80.0025 96.0002C80.0025 96.0002 80.8621 58.0173 118.003 58Z"
+      id="New-shape-6" fill="none" fill-rule="evenodd" stroke="#FFFFFF" stroke-width="2"
+      clip-path="url(#clip_1)" />
+    <path
+      d="M80 122L80 121L138.5 121C159.766 121 177 138.234 177 159.5C177 180.766 159.766 198 138.5 198L128.5 198C101.711 198 80 176.289 80 149.5L80 122L80 122Z"
+      id="パス-1" fill="none" fill-rule="evenodd" stroke="#B4B4B4" stroke-width="2"
+      clip-path="url(#clip_1)" />
+  </g>
+</svg>
