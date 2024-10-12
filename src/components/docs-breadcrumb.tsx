@@ -46,7 +46,7 @@ export function DocsBreadcrumb({ items }: { items: { href?: string, label: strin
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start">
                   {items.slice(0, -2).map((item, index) => (
-                    <DropdownMenuItem key={item.href}>
+                    <DropdownMenuItem key={item.label}>
                       <Link href={item.href ? item.href : "#"}>
                         {item.label}
                       </Link>
@@ -59,20 +59,22 @@ export function DocsBreadcrumb({ items }: { items: { href?: string, label: strin
           </>
         ) : null}
         {items.slice(-ITEMS_TO_DISPLAY + 1).map((item, index) => (
-          <BreadcrumbItem key={item.href}>
-            {item.href ? (
-              <>
+          item.href ? (
+            <div key={item.label} className="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
+              <BreadcrumbItem>
                 <BreadcrumbLink asChild>
                   <Link href={item.href}>{item.label}</Link>
                 </BreadcrumbLink>
-                <BreadcrumbSeparator />
-              </>
-            ) : (
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+            </div>
+          ) : (
+            <BreadcrumbItem key={item.label}>
               <BreadcrumbPage>
                 {item.label}
               </BreadcrumbPage>
-            )}
-          </BreadcrumbItem>
+            </BreadcrumbItem>
+          )
         ))}
       </BreadcrumbList>
     </Breadcrumb>

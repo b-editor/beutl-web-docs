@@ -115,6 +115,7 @@ export default async function Page({
       {
         parseFrontmatter: true,
         mdxOptions: {
+          useDynamicImport: false,
           remarkPlugins: [
             remarkGfm,
             [remarkGitHub, remarkGitHubConfig],

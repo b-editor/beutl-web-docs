@@ -93,10 +93,10 @@ export function MarkdownContainer({ source, breadcrumbs, title, sourcePath, toc 
       href: v.path
     })), here] as { label: string, href?: string }[];
   }, [breadcrumbs, title]);
-  useToc();
+  // useToc();
 
   useEffect(() => {
-    renderCardIcon();
+    // renderCardIcon();
   }, []);
 
   const tocMobile = useMemo(() => {
