@@ -1,7 +1,7 @@
-import { serialize } from 'next-mdx-remote/serialize'
-import type { MDXRemoteSerializeResult } from 'next-mdx-remote'
+import { compileMDX } from 'next-mdx-remote/rsc'
 import type { Metadata, ResolvingMetadata } from "next";
-import React from "react";
+import type React from "react";
+import type * as mdx from '@mdx-js/react';
 import remarkGitHub from 'remark-github-beta-blockquote-admonitions'
 import rehypeSlug from 'rehype-slug';
 import {
@@ -20,6 +20,8 @@ import highlightJson from 'highlight.js/lib/languages/json';
 import highlightCS from 'highlight.js/lib/languages/csharp';
 import highlightXml from 'highlight.js/lib/languages/xml';
 import { common } from 'lowlight';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 type Props = {
   params: { slug: string[], lang: string }
@@ -66,7 +68,7 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   let params: { slug: string[] }[] = [];
 
   for (const lang of ["ja"]) {
-  // for (const lang of ["en", "ja"]) {
+    // for (const lang of ["en", "ja"]) {
     const entry = await getAllEntries(lang);
     const paths: string[] = [];
     const expand = (entry: Entry) => {
@@ -94,6 +96,50 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   return params;
 }
 
+const getComponents = (sourcePath: string): React.ComponentProps<typeof mdx.MDXProvider>['components'] => {
+  return {
+    a: (props) => {
+      if (!props.href) {
+        return <a {...props} />
+      }
+
+      return (
+        <Link href={props.href} id={props.id} className={cn("text-text underline underline-offset-4", props.className)}>
+          {props.children}
+        </Link>
+      )
+    },
+
+    img: (props) => {
+      let src = props.src;
+      if (!(src?.startsWith("https://") || src?.startsWith("http://")) && src) {
+        src = new URL(src, `https://raw.githubusercontent.com/b-editor/beutl-docs/main/${sourcePath}`).toString();
+      }
+
+      if (src?.endsWith(".mp4") || src?.endsWith(".mov")) {
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+        return <video {...props as any} src={src} controls />
+      }
+
+      // biome-ignore lint/a11y/useAltText: <explanation>
+      return <img {...props} src={src} />
+    },
+
+    h1: (props) => <h1 className="scroll-m-20 my-4 text-3xl font-extrabold tracking-tight lg:text-4xl" {...props} />,
+    h2: (props) => <h2 className="scroll-m-20 my-4 border-b pb-2 text-2xl font-semibold tracking-tight first:mt-0" {...props} />,
+    h3: (props) => <h3 className="scroll-m-20 my-4 text-xl font-semibold tracking-tight" {...props} />,
+    h4: (props) => <h4 className="scroll-m-20 my-4 text-lg font-semibold tracking-tight" {...props} />,
+    h5: (props) => <h5 className="scroll-m-20 my-4 text-base font-semibold tracking-tight" {...props} />,
+    code: (props) => <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded" {...props} />,
+    ol: (props) => <ol className="my-6 ml-6 list-decimal [&>li]:mt-2" {...props} />,
+    ul: (props) => <ul className="my-6 ml-6 list-disc [&>li]:mt-2" {...props} />,
+    table: (props) => <table className="table-auto w-full my-6" {...props} />,
+    tr: (props) => <tr className="m-0 border-t p-0 even:bg-muted/10" {...props} />,
+    th: (props) => <th className="border px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right" {...props} />,
+    td: (props) => <td className="border px-4 py-2 text-left [&[align=center]]:text-center [&[align=right]]:text-right" {...props} />,
+  };
+};
+
 export default async function Page({
   params: { slug } }
   : { params: { slug: string[] } }
@@ -107,15 +153,14 @@ export default async function Page({
   const decodedSlug = slug.map(i => decodeURIComponent(i));
   const mdsource = await getContentFromSlug("ja", decodedSlug);
   const [breadcrumbs, frontmatter, toc] = await Promise.all([getAncestorsFromSlug("ja", decodedSlug), getFrontmatterFromSlug("ja", decodedSlug), getTableOfContents("ja", decodedSlug)])
-  let source: MDXRemoteSerializeResult | undefined;
+  let content: React.ReactElement | undefined;
 
   if (mdsource) {
-    source = await serialize(
-      mdsource.content,
-      {
+    content = (await compileMDX({
+      source: mdsource.content,
+      options: {
         parseFrontmatter: true,
         mdxOptions: {
-          useDynamicImport: false,
           remarkPlugins: [
             remarkGfm,
             [remarkGitHub, remarkGitHubConfig],
@@ -125,17 +170,19 @@ export default async function Page({
             rehypeHighlight
           ]
         }
-      });
+      },
+      components: getComponents(mdsource.path)
+    })).content;
   }
 
-  if (!source || !mdsource) {
+  if (!content || !mdsource) {
     notFound();
   }
 
   return (
     <MarkdownContainer
       breadcrumbs={breadcrumbs}
-      source={source}
+      content={content}
       title={frontmatter?.title}
       sourcePath={mdsource.path}
       toc={toc}
