@@ -23,6 +23,8 @@ import { common } from 'lowlight';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
+export const runtime = 'edge';
+
 type Props = {
   params: { slug: string[], lang: string }
   // searchParams: { [key: string]: string | string[] | undefined }

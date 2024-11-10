@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { getTranslation } from "../i18n/server";
 
+export const runtime = 'edge';
+
 export default async function Home({params:{lang}}:{params:{lang:string}}) {
   const { t } = await getTranslation(lang);
 

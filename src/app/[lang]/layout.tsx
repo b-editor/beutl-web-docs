@@ -6,6 +6,8 @@ import NavBar from "@/components/nav-bar";
 import Footer from "@/components/footer";
 import { LanguageProvider } from "../i18n/client";
 
+export const runtime = 'edge';
+
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   variable: '--font-noto-sans-jp'
