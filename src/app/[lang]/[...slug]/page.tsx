@@ -28,8 +28,8 @@ type Props = {
   // searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({ params: { slug } }: Props, parent: ResolvingMetadata): Promise<Metadata> {
-  const frontmatter = await getFrontmatterFromSlug("ja", slug.map(i => decodeURIComponent(i)));
+export async function generateMetadata({ params: { slug, lang } }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const frontmatter = await getFrontmatterFromSlug(lang, slug.map(i => decodeURIComponent(i)));
 
   return {
     title: frontmatter.title,
@@ -67,8 +67,7 @@ const remarkGitHubConfig = {
 export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
   let params: { slug: string[] }[] = [];
 
-  for (const lang of ["ja"]) {
-    // for (const lang of ["en", "ja"]) {
+  for (const lang of ["en", "ja"]) {
     const entry = await getAllEntries(lang);
     const paths: string[] = [];
     const expand = (entry: Entry) => {
@@ -141,18 +140,18 @@ const getComponents = (sourcePath: string): React.ComponentProps<typeof mdx.MDXP
 };
 
 export default async function Page({
-  params: { slug } }
-  : { params: { slug: string[] } }
+  params: { lang, slug } }
+  : { params: { lang: string, slug: string[] } }
 ) {
   if (slug.length > 0 && slug[slug.length - 1].endsWith(".md")) {
     const last = slug[slug.length - 1];
     slug[slug.length - 1] = last.slice(0, last.length - 3);
-    permanentRedirect(`/docs/${slug.join("/")}`, RedirectType.replace);
+    permanentRedirect(`/${lang}/${slug.join("/")}`, RedirectType.replace);
   }
 
   const decodedSlug = slug.map(i => decodeURIComponent(i));
-  const mdsource = await getContentFromSlug("ja", decodedSlug);
-  const [breadcrumbs, frontmatter, toc] = await Promise.all([getAncestorsFromSlug("ja", decodedSlug), getFrontmatterFromSlug("ja", decodedSlug), getTableOfContents("ja", decodedSlug)])
+  const mdsource = await getContentFromSlug(lang, decodedSlug);
+  const [breadcrumbs, frontmatter, toc] = await Promise.all([getAncestorsFromSlug(lang, decodedSlug), getFrontmatterFromSlug(lang, decodedSlug), getTableOfContents(lang, decodedSlug)])
   let content: React.ReactElement | undefined;
 
   if (mdsource) {
@@ -181,6 +180,7 @@ export default async function Page({
 
   return (
     <MarkdownContainer
+      lang={lang}
       breadcrumbs={breadcrumbs}
       content={content}
       title={frontmatter?.title}

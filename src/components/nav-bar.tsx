@@ -1,17 +1,18 @@
 import Link from "next/link";
 import { StandardDrawer } from "./drawer";
-import { NavigationMenuContent, NavigationMenuItem, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "./ui/navigation-menu";
+import { NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from "./ui/navigation-menu";
 import { cn } from "@/lib/utils";
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
 import type { Entry } from "@/lib/docs-fetcher";
+import { t } from "i18next";
 
-export default async function NavBar({ rootEntry }: { rootEntry: Entry }) {
+export default async function NavBar({ rootEntry, lang }: { rootEntry: Entry, lang: string }) {
   return (
     <nav className="py-2 px-2 md:px-[52px] gap-2 flex sticky top-0 w-full items-center justify-between border-b bg-background z-20">
       <div className="gap-2 flex">
-        <StandardDrawer rootEntry={rootEntry} />
+        <StandardDrawer rootEntry={rootEntry} lang={lang} />
 
-        <Link className="decoration-0 flex gap-2 my-auto" href="/">
+        <Link className="decoration-0 flex gap-2 my-auto" href={`/${lang}`}>
           <img className='align-bottom' src="/img/logo_dark.svg" alt="Logo" />
           <h1 className="font-semibold text-xl mt-1">Beutl</h1>
         </Link>
@@ -26,12 +27,12 @@ export default async function NavBar({ rootEntry }: { rootEntry: Entry }) {
           <NavigationMenuList>
             <Link href="/docs/get-started" legacyBehavior passHref>
               <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "max-md:hidden")}>
-                スタート
+                {t("start")}
               </NavigationMenuLink>
             </Link>
             <Link href="/docs/extensions" legacyBehavior passHref className="max-sm:hidden">
               <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "max-md:hidden")}>
-                拡張機能開発
+                {t("extensions")}
               </NavigationMenuLink>
             </Link>
           </NavigationMenuList>

@@ -1,0 +1,54 @@
+{
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "signOut": "Sign out",
+  "docs": "Documents",
+  "store": "Store",
+  "account": "Account",
+  "storage": "Storage",
+  "developer": "Developer",
+  "library": "Library",
+  "privacy": "Privacy Policy",
+  "telemetry": "Telemetry Policy",
+  "socials": "Socials",
+  "error": "Error",
+  "success": "Success",
+  "save": "Save",
+  "discardChanges": "Discard changes",
+  "cancel": "Cancel",
+  "continue": "Continue",
+  "userDeveloper": "For User / Developer",
+  "start": "Start",
+  "advanced": "Advanced Documents",
+  "beginnerGuide": "Beginner Guide",
+  "developerGuide": "Developer Guide",
+  "titles":{
+    "beginner":{
+      "installation": "Installation",
+      "creatingProject": "Creating a project",
+      "projectStructure": "Project Structure",
+      "addingElements": "Adding Elements",
+      "editingElements": "Editing Elements",
+      "keyframes": "Keyframes",
+      "encoding": "Encoding",
+      "notes": "Important Notes",
+      "ffmpegConfiguration": "FFmpeg Configuration"
+    },
+    "advanced":{
+      "renderingProcess": "Rendering Process",
+      "sourceOperations": "Source Operations",
+      "effects": "Effects",
+      "caching": "Caching",
+      "supportedTypesInEditor": "Supported Types in Property Editor"
+    }
+  },
+  "extensions": "Extensions",
+  "tableOfContents": "Table of contents",
+  "showMoreCount": "Show {{count}} more",
+  "showLess": "Show less",
+  "viewOnGitHub": "View on GitHub",
+  "articleSourceOnGitHub": {
+    "_0": "The source of this article is on GitHub.",
+    "_1": "If you have any improvements, please open an issue or a pull request."
+  }
+}

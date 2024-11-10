@@ -3,17 +3,16 @@
 import { useEffect, useMemo, useReducer } from "react";
 import "@/styles/MarkdownComponents.css";
 import "@/styles/github-markdown-dark.css";
-import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import 'highlight.js/styles/github-dark.css';
 import { useToc } from "@/hooks/use-toc";
 import { renderCardIcon } from "@/lib/card-icon-renderer";
-import type * as mdx from '@mdx-js/react';
 import type { Toc, TocEntry } from "@stefanprobst/rehype-extract-toc";
 import Image from "next/image";
 import { DocsBreadcrumb } from "./docs-breadcrumb";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/app/i18n/client";
 
 type MarkdownContainerProps = {
   content: React.ReactElement,
@@ -21,6 +20,7 @@ type MarkdownContainerProps = {
   breadcrumbs: { title: string, path: string }[],
   title: string | undefined,
   toc: Toc
+  lang: string
 }
 
 function TocListItem({ toc }: { toc: TocEntry }) {
@@ -35,7 +35,8 @@ function TocListItem({ toc }: { toc: TocEntry }) {
   )
 }
 
-export function MarkdownContainer({ content: source, breadcrumbs, title, sourcePath, toc }: MarkdownContainerProps) {
+export function MarkdownContainer({ content: source, breadcrumbs, title, sourcePath, toc, lang }: MarkdownContainerProps) {
+  const { t } = useTranslation(lang);
   const [showMore, toggleShowMore] = useReducer(v => !v, false);
   const renderedBreadcrumbs = useMemo(() => {
     const here = {
@@ -79,14 +80,14 @@ export function MarkdownContainer({ content: source, breadcrumbs, title, sourceP
     <div className="max-w-5xl mx-auto">
       <div className={cn(toc.length > 0 && "md:flex md:flex-nowrap")}>
         <div className={cn("p-4 mb-8", toc.length > 0 && "md:max-w-[80%] flex-1 box-border")}>
-          <DocsBreadcrumb items={renderedBreadcrumbs} />
+          <DocsBreadcrumb items={renderedBreadcrumbs} lang={lang} />
 
           <div className="markdownRoot">
             <h1 className="scroll-m-20 my-4 text-3xl font-extrabold tracking-tight lg:text-4xl">{title}</h1>
 
             {tocMobile.length > 0 &&
               <div className="md:hidden my-6">
-                <p className="text-xl font-semibold tracking-tight">この記事の内容</p>
+                <p className="text-xl font-semibold tracking-tight">{t("tableOfContents")}</p>
                 <nav className={`toc ${showMore ? "showMore" : ""}`}>
                   <ol className="toc-level">
                     {tocMobile.map((item, i) =>
@@ -107,7 +108,7 @@ export function MarkdownContainer({ content: source, breadcrumbs, title, sourceP
                     e.preventDefault();
                     toggleShowMore();
                   }}>
-                  {!showMore ? `さらに${tocMobile.length - 4}個を表示` : "少なく表示"}
+                  {!showMore ? t("showMoreCount", { count: tocMobile.length - 4 }) : t("showLess")}
                 </Button>}
               </div>}
 
@@ -117,17 +118,17 @@ export function MarkdownContainer({ content: source, breadcrumbs, title, sourceP
           <a href={`https://github.com/b-editor/beutl-docs/blob/main/${sourcePath}`} className="flex rounded-lg border mt-8 p-4 gap-4 bg-secondary/20">
             <Image src="/img/github-color.svg" width={40} height={40} alt="GitHub Logo" className="invert" />
             <div>
-              <p className="font-semibold">GitHubで表示</p>
+              <p className="font-semibold">{t("viewOnGitHub")}</p>
               <p>
-                この記事のソースはGitHubにあります。<br />
-                改善点があればIssueやPull requestを開いてください。
+                {t("articleSourceOnGitHub._0")}<br />
+                {t("articleSourceOnGitHub._1")}
               </p>
             </div>
           </a>
         </div>
         {toc.length > 0 && <div className="rightContainer max-md:hidden max-w-[20%] flex-[0,0,20%]">
           <div className="sticky top-28">
-            <h3>この記事の内容</h3>
+            <h3>{t("tableOfContents")}</h3>
 
             <nav className="toc">
               <ol className="toc-level">

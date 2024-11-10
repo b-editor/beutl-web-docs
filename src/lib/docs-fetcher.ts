@@ -120,7 +120,7 @@ export async function getAncestersFromSlug(lang: string, slug: string[]) {
       if (f.title) {
         items.push({
           title: f.title,
-          path: `/docs/${joined}`
+          path: `/${lang}/${joined}`
         });
       }
     } catch (err) {

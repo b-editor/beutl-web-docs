@@ -22,14 +22,14 @@ import { Home } from "lucide-react"
 
 const ITEMS_TO_DISPLAY = 3
 
-export function DocsBreadcrumb({ items }: { items: { href?: string, label: string }[] }) {
+export function DocsBreadcrumb({ items, lang }: { items: { href?: string, label: string }[], lang: string }) {
   const [open, setOpen] = useState(false)
 
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbLink asChild>
-          <Link href="/docs">
+          <Link href={`/${lang}`}>
             <Home className="h-4 w-4" />
           </Link>
         </BreadcrumbLink>

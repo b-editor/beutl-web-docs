@@ -1,0 +1,51 @@
+{
+  "signIn": "サインイン",
+  "signUp": "サインアップ",
+  "signOut": "サインアウト",
+  "docs": "ドキュメント",
+  "store": "ストア",
+  "account": "アカウント",
+  "storage": "ストレージ",
+  "developer": "デベロッパー",
+  "library": "ライブラリ",
+  "privacy": "プライバシーポリシー",
+  "telemetry": "テレメトリーポリシー",
+  "socials": "ソーシャル",
+  "error": "エラー",
+  "success": "成功",
+  "save": "保存",
+  "discardChanges": "変更を破棄",
+  "cancel": "キャンセル",
+  "continue": "続行",
+  "userDeveloper": "ユーザー/開発者向け",
+  "start": "スタート",
+  "advanced": "高度なドキュメント",
+  "beginnerGuide": "初心者向け",
+  "developerGuide": "開発者向け",
+  "titles":{
+    "beginner":{
+      "installation": "インストール",
+      "creatingProject": "プロジェクトの作成",
+      "projectStructure": "プロジェクトの構造",
+      "addingElements": "要素の追加",
+      "editingElements": "要素の編集",
+      "keyframes": "キーフレーム",
+      "encoding": "エンコード",
+      "notes": "重要な注意事項",
+      "ffmpegConfiguration": "FFmpeg Configuration"
+    },
+    "advanced":{
+      "renderingProcess": "レンダリングプロセス",
+      "sourceOperations": "ソース操作",
+      "effects": "エフェクト",
+      "caching": "キャッシュ",
+      "supportedTypesInEditor": "プロパティエディタが対応している型"
+    }
+  },
+  "extensions": "拡張機能",
+  "tableOfContents": "この記事の内容",
+  "showMoreCount": "さらに{{count}}個を表示",
+  "showLess": "少なく表示",
+  "viewOnGitHub": "GitHubで表示",
+  "articleSourceOnGitHub": "この記事のソースはGitHubにあります。<br />改善点があればIssueやPull requestを開いてください。"
+}

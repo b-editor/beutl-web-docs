@@ -1,26 +1,20 @@
 import { Menu } from "lucide-react"
-import Image from "next/image";
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet';
-import { NavigationMenu, NavigationMenuLink, NavigationMenuList, navigationMenuTriggerStyle } from './ui/navigation-menu';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import type { Entry } from "@/lib/docs-fetcher";
 import { type TreeDataItem, TreeView } from "./tree-view";
-import { useMemo } from "react";
-import { useRouter } from "next/navigation";
 
-function convertToTreeDataItem(entry: Entry): TreeDataItem {
+function convertToTreeDataItem(entry: Entry, lang: string): TreeDataItem {
   return {
     id: entry.path,
-    href: `/docs${entry.path}`,
+    href: `/${lang}${entry.path}`,
     name: entry.title,
-    children: entry.children.length > 0 ? entry.children.map(convertToTreeDataItem) : undefined
+    children: entry.children.length > 0 ? entry.children.map((e) => convertToTreeDataItem(e, lang)) : undefined
   };
 }
 
-export function StandardDrawer({ rootEntry }: { rootEntry: Entry }) {
-  const data = rootEntry.children.map(convertToTreeDataItem);
+export function StandardDrawer({ rootEntry, lang }: { rootEntry: Entry, lang: string }) {
+  const data = rootEntry.children.map((e) => convertToTreeDataItem(e, lang));
 
   return (
     <Sheet>

@@ -1,7 +1,9 @@
+import { getTranslation } from "@/app/i18n/server";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Footer() {
+export default async function Footer({ lang }: { lang: string }) {
+  const { t } = await getTranslation(lang);
   return (
     <div className="bg-secondary">
       <div className="container mx-auto px-6 py-6 md:px-12">
@@ -17,8 +19,8 @@ export default function Footer() {
           </Link>
         </div>
         <div className="mt-8 flex gap-3 flex-wrap">
-          <Link href="/docs/privacy">プライバシーポリシー</Link>
-          <Link href="/docs/telemetry">テレメトリー</Link>
+          <Link href="https://beutl.beditor.net/docs/privacy">{t("privacy")}</Link>
+          <Link href="https://beutl.beditor.net/docs/telemetry">{t("telemetry")}</Link>
         </div>
         <p className="text-end mt-6">© 2020-2024 b-editor</p>
       </div>
