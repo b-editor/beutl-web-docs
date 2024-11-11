@@ -5,8 +5,6 @@ import Link from "next/link";
 import { getTranslation } from "../i18n/server";
 import { availableLanguages } from "../i18n/settings";
 
-export const runtime = 'edge';
-
 export async function generateStaticParams() {
   return availableLanguages.map(lang => ({ lang }));
 }
