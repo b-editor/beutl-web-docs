@@ -18,7 +18,7 @@ const octokit = new Octokit({
   auth: process.env.GITHUB_PAT,
   request: {
     fetch: (url: string | URL | globalThis.Request, options?: RequestInit) => {
-      return fetch(url, { ...options });
+      return fetch(url, { ...options, cache: "force-cache", next: { revalidate: false } });
     }
   }
 });
