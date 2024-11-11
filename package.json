@@ -42,7 +42,6 @@
     "vfile-matter": "^5.0.0"
   },
   "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.5",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^22.7.5",
     "@types/react": "^18",
