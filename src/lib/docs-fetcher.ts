@@ -243,7 +243,7 @@ ${Object.keys(frontmatter).map(k => `${k}: ${frontmatter[k]}`).join("\n")}
 ---
 ${frontmatter.description ?? ""}
 
-${entry.children.map(i => `- [${i.title}](/docs${i.path})`).join("\n")}`,
+${entry.children.map(i => `- [${i.title}](/${lang}${i.path})`).join("\n")}`,
               path: result.path
             };
           }
