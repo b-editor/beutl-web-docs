@@ -3,10 +3,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import Image from "next/image";
 import Link from "next/link";
 import { getTranslation } from "../i18n/server";
+import { availableLanguages } from "../i18n/settings";
 
 export const runtime = 'edge';
 
-export default async function Home({params:{lang}}:{params:{lang:string}}) {
+export async function generateStaticParams() {
+  return availableLanguages.map(lang => ({ lang }));
+}
+
+export default async function Home({ params: { lang } }: { params: { lang: string } }) {
   const { t } = await getTranslation(lang);
 
   return (

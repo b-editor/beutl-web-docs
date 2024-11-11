@@ -66,8 +66,8 @@ const remarkGitHubConfig = {
   titleFilter: ["[!NOTE]", "[!TIP]", "[!IMPORTANT]", "[!WARNING]", "[!CAUTION]"],
 };
 
-export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
-  let params: { slug: string[] }[] = [];
+export async function generateStaticParams(): Promise<{ slug: string[], lang: string }[]> {
+  let params: { slug: string[], lang: string }[] = [];
 
   for (const lang of ["en", "ja"]) {
     const entry = await getAllEntries(lang);
@@ -89,7 +89,7 @@ export async function generateStaticParams(): Promise<{ slug: string[] }[]> {
       slugs.filter(i => i.length !== 0)
         .map(i => ({
           slug: i,
-          // lang
+          lang
         }))
     );
   }
