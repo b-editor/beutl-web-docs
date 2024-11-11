@@ -25,12 +25,12 @@ export default async function NavBar({ rootEntry, lang }: { rootEntry: Entry, la
           )}
         >
           <NavigationMenuList>
-            <Link href="/docs/get-started" legacyBehavior passHref>
+            <Link href={`/${lang}/get-started`} legacyBehavior passHref>
               <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "max-md:hidden")}>
                 {t("start")}
               </NavigationMenuLink>
             </Link>
-            <Link href="/docs/extensions" legacyBehavior passHref className="max-sm:hidden">
+            <Link href={`/${lang}/extensions`} legacyBehavior passHref className="max-sm:hidden">
               <NavigationMenuLink className={cn(navigationMenuTriggerStyle(), "max-md:hidden")}>
                 {t("extensions")}
               </NavigationMenuLink>

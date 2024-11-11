@@ -21,7 +21,7 @@ export default async function Home({ params: { lang } }: { params: { lang: strin
             <h2 className="text-xl mt-2">{t("userDeveloper")}</h2>
             <div className="flex gap-2 mt-4">
               <Button asChild>
-                <Link href={`/${lang}/docs/get-started`}>
+                <Link href={`/${lang}/get-started`}>
                   {t("start")}
                 </Link>
               </Button>
