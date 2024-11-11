@@ -47,5 +47,8 @@
   "showMoreCount": "さらに{{count}}個を表示",
   "showLess": "少なく表示",
   "viewOnGitHub": "GitHubで表示",
-  "articleSourceOnGitHub": "この記事のソースはGitHubにあります。<br />改善点があればIssueやPull requestを開いてください。"
+  "articleSourceOnGitHub": {
+    "_0": "この記事のソースはGitHubにあります。",
+    "_1": "改善点があればIssueやPull requestを開いてください。"
+  }
 }
