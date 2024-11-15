@@ -1,9 +1,13 @@
 import { getTranslation } from "@/app/i18n/server";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Footer({ lang }: { lang: string }) {
+  const url = new URL(headers().get("x-url") || "/");
+  const langUrl = url.pathname?.replace(/\/ja/, "").replace(/\/en/, "");
   const { t } = await getTranslation(lang);
+
   return (
     <div className="bg-secondary">
       <div className="container mx-auto px-6 py-6 md:px-12">
@@ -22,7 +26,14 @@ export default async function Footer({ lang }: { lang: string }) {
           <Link href="https://beutl.beditor.net/docs/privacy">{t("privacy")}</Link>
           <Link href="https://beutl.beditor.net/docs/telemetry">{t("telemetry")}</Link>
         </div>
-        <p className="text-end mt-6">© 2020-2024 b-editor</p>
+        <div className="mt-4 flex justify-between">
+          <div className="flex gap-3 flex-wrap">
+            <Link href={`/ja${langUrl}`}>日本語</Link>
+            <span>|</span>
+            <Link href={`/en${langUrl}`}>English</Link>
+          </div>
+          <p className="text-end">© 2020-2024 b-editor</p>
+        </div>
       </div>
     </div>
   )
