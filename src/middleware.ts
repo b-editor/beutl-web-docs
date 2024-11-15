@@ -9,7 +9,9 @@ const getNegotiatedLanguage = (
 };
 
 export function middleware(request: NextRequest) {
+  const newRequest = request.clone();
   const url = `${request.headers.get("x-forwarded-proto")}://${request.headers.get("x-forwarded-host")}${request.nextUrl.pathname}${request.nextUrl.search}`;
+  newRequest.headers.set('x-url', url);
 
   const headers = {
     'accept-language': request.headers.get('accept-language') ?? '',
@@ -19,7 +21,11 @@ export function middleware(request: NextRequest) {
   const pathname = `${request.nextUrl.pathname}${request.nextUrl.search}`;
 
   if (["/img", "/robots.txt", "/_next"].find(i => pathname.startsWith(i))) {
-    return NextResponse.next();
+    return NextResponse.next({
+      request: {
+        headers: newRequest.headers
+      }
+    });
   }
 
   const pathnameIsMissingLocale = availableLanguages.every(
@@ -33,11 +39,19 @@ export function middleware(request: NextRequest) {
       );
     } else {
       const newPathname = `/${defaultLanguage}${pathname}`;
-      return NextResponse.rewrite(new URL(newPathname, request.url));
+      return NextResponse.rewrite(new URL(newPathname, request.url), {
+        request: {
+          headers: newRequest.headers
+        }
+      });
     }
   }
 
-  return NextResponse.next();
+  return NextResponse.next({
+    request: {
+      headers: newRequest.headers
+    }
+  });
 }
 
 export const config = {
