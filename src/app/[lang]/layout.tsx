@@ -11,7 +11,6 @@ const notoSansJP = Noto_Sans_JP({
   variable: '--font-noto-sans-jp'
 });
 
-export const runtime = "edge";
 
 export const metadata: Metadata = {
   title: "Beutl"
