@@ -23,8 +23,8 @@ export default async function Footer({ lang }: { lang: string }) {
           </Link>
         </div>
         <div className="mt-8 flex gap-3 flex-wrap">
-          <Link href="https://beutl.beditor.net/docs/privacy">{t("privacy")}</Link>
-          <Link href="https://beutl.beditor.net/docs/telemetry">{t("telemetry")}</Link>
+          <Link prefetch={false} href="https://beutl.beditor.net/docs/privacy">{t("privacy")}</Link>
+          <Link prefetch={false} href="https://beutl.beditor.net/docs/telemetry">{t("telemetry")}</Link>
         </div>
         <div className="mt-4 flex justify-between">
           <div className="flex gap-3 flex-wrap">
