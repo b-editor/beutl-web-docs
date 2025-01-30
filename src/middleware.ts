@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
 
   const pathname = `${request.nextUrl.pathname}${request.nextUrl.search}`;
 
-  if (["/img", "/robots.txt", "/_next"].find(i => pathname.startsWith(i))) {
+  if (["/img", "/favicon.ico", "/robots.txt", "/_next"].find(i => pathname.startsWith(i))) {
     return NextResponse.next({
       request: {
         headers: newRequest.headers
