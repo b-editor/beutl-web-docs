@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import Negotiator from 'negotiator';
 import { defaultLanguage, availableLanguages } from '@/app/i18n/settings';
 
@@ -35,16 +35,15 @@ export function middleware(request: NextRequest) {
   if (pathnameIsMissingLocale) {
     if (preferredLanguage !== defaultLanguage) {
       return NextResponse.redirect(
-        new URL(`/${preferredLanguage}${pathname}`, url),
+        new URL(`/${preferredLanguage}${pathname}`, request.url),
       );
-    } else {
-      const newPathname = `/${defaultLanguage}${pathname}`;
-      return NextResponse.rewrite(new URL(newPathname, request.url), {
-        request: {
-          headers: newRequest.headers
-        }
-      });
     }
+    const newPathname = `/${defaultLanguage}${pathname}`;
+    return NextResponse.rewrite(new URL(newPathname, request.url), {
+      request: {
+        headers: newRequest.headers
+      }
+    });
   }
 
   return NextResponse.next({

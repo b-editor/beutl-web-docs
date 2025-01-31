@@ -225,6 +225,7 @@ export async function getContentFromSlug(lang: string, slug: string[]): Promise<
       if (result) {
         const frontmatter = getFrontmatterFromContent(result.content);
         if (frontmatter?.type === "ignore") {
+          // TODO: ignoreの場合もレンダリングするようにする
           return undefined;
         }
         if (frontmatter?.type === "auto") {
