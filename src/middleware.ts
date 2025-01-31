@@ -10,7 +10,7 @@ const getNegotiatedLanguage = (
 
 export function middleware(request: NextRequest) {
   const newRequest = request.clone();
-  const url = `${request.headers.get("x-forwarded-proto")}://${request.headers.get("x-forwarded-host")}${request.nextUrl.pathname}${request.nextUrl.search}`;
+  const url = request.url;//`${request.headers.get("x-forwarded-proto")}://${request.headers.get("x-forwarded-host")}${request.nextUrl.pathname}${request.nextUrl.search}`;
   newRequest.headers.set('x-url', url);
 
   const headers = {
