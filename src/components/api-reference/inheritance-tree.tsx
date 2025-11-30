@@ -31,7 +31,7 @@ function TypeLink({
         href={msDocsUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="font-mono text-sm text-muted-foreground hover:text-foreground hover:underline underline-offset-4"
+        className="font-mono text-sm text-muted-foreground hover:text-foreground hover:underline"
       >
         {displayName}
       </a>
@@ -49,7 +49,7 @@ function TypeLink({
   return (
     <Link
       href={`/${lang}/api-reference/${encodeURIComponent(uid)}`}
-      className="font-mono text-sm text-primary hover:underline underline-offset-4"
+      className="font-mono text-sm text-primary hover:underline"
     >
       {displayName}
     </Link>
@@ -103,7 +103,7 @@ export function InheritanceTree({
             {implementsList.map((uid) => (
               <span
                 key={uid}
-                className="px-2 py-1 rounded-md bg-muted/50 text-sm"
+                className="px-2 py-1 rounded-md border text-sm"
               >
                 <TypeLink uid={uid} lang={lang} />
               </span>

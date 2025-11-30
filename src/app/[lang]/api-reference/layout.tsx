@@ -13,11 +13,9 @@ export default async function ApiReferenceLayout({
   const namespaces = await getNamespaces();
 
   return (
-    <div className="flex gap-6 max-w-7xl mx-auto">
+    <div className="flex gap-6 max-w-7xl mx-auto px-4 py-6">
       {/* Sidebar - hidden on mobile */}
-      <div className="hidden lg:block">
-        <ApiSidebar namespaces={namespaces} lang={lang} />
-      </div>
+      <ApiSidebar namespaces={namespaces} lang={lang} className="hidden lg:block" />
 
       {/* Main Content */}
       <main className="flex-1 min-w-0">{children}</main>
