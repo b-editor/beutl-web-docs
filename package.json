@@ -39,7 +39,8 @@
     "tailwind-merge": "^2.5.3",
     "tailwindcss-animate": "^1.0.7",
     "vfile": "^6.0.3",
-    "vfile-matter": "^5.0.0"
+    "vfile-matter": "^5.0.0",
+    "yaml": "^2.8.2"
   },
   "devDependencies": {
     "@types/negotiator": "^0.6.3",
