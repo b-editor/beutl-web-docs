@@ -18,8 +18,8 @@ import type {
   SearchResult,
 } from "./types";
 
-// Path to API reference data
-const API_DATA_PATH = join(process.cwd(), "src/data/api-reference");
+// Path to API reference data (from beutl-api-data submodule)
+const API_DATA_PATH = join(process.cwd(), "src/data/api-reference/api");
 
 // Cache for loaded documents
 const documentCache = new Map<string, ApiDocument>();
