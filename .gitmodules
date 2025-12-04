@@ -1,3 +1,0 @@
-[submodule "src/data/api-reference"]
-	path = src/data/api-reference
-	url = https://github.com/b-editor/beutl-api-data.git
