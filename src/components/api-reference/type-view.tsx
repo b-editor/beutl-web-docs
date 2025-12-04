@@ -96,7 +96,7 @@ export function TypeView({ item, members, lang }: TypeViewProps) {
         derivedClasses={item.derivedClasses}
         currentUid={item.uid}
         lang={lang}
-        className="mb-8 p-4 rounded-lg border"
+        className="mb-8 p-4 rounded-lg bg-muted/30"
       />
 
       {/* Remarks */}
